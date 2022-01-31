@@ -1,0 +1,16 @@
+{
+  "name": "optics-v2-all-local",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/  dapplooker/celo-optics-v2 --access-token e13b2bb327374972b33895b204047fc1",
+    "create-local": "graph create --node http://localhost:8020/ realchoubey/optics-v2-all-local",
+    "remove-local": "graph remove --node http://localhost:8020/ realchoubey/optics-v2-all-local",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 realchoubey/optics-v2-all-local"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "git+ssh://git@github.com/dapplooker/graph-cli-dlooker.git#get_0.25.1",
+    "@graphprotocol/graph-ts": "0.24.1"
+  }
+}
