@@ -12,11 +12,12 @@ import {
   Address
 } from "@graphprotocol/graph-ts";
 
-export class NFTRewardsVaultTransferEvent extends Entity {
+export class TokenTransactions extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("txHash", Value.fromBytes(Bytes.empty()));
     this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
     this.set("from", Value.fromBytes(Bytes.empty()));
     this.set("to", Value.fromBytes(Bytes.empty()));
@@ -25,23 +26,20 @@ export class NFTRewardsVaultTransferEvent extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(
-      id != null,
-      "Cannot save NFTRewardsVaultTransferEvent entity without an ID"
-    );
+    assert(id != null, "Cannot save TokenTransactions entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NFTRewardsVaultTransferEvent entity with non-string ID. " +
+        "Cannot save TokenTransactions entity with non-string ID. " +
           'Considering using .toHex() to convert the "id" to a string.'
       );
-      store.set("NFTRewardsVaultTransferEvent", id.toString(), this);
+      store.set("TokenTransactions", id.toString(), this);
     }
   }
 
-  static load(id: string): NFTRewardsVaultTransferEvent | null {
-    return changetype<NFTRewardsVaultTransferEvent | null>(
-      store.get("NFTRewardsVaultTransferEvent", id)
+  static load(id: string): TokenTransactions | null {
+    return changetype<TokenTransactions | null>(
+      store.get("TokenTransactions", id)
     );
   }
 
@@ -54,21 +52,13 @@ export class NFTRewardsVaultTransferEvent extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get txHash(): Bytes | null {
+  get txHash(): Bytes {
     let value = this.get("txHash");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBytes();
-    }
+    return value!.toBytes();
   }
 
-  set txHash(value: Bytes | null) {
-    if (!value) {
-      this.unset("txHash");
-    } else {
-      this.set("txHash", Value.fromBytes(<Bytes>value));
-    }
+  set txHash(value: Bytes) {
+    this.set("txHash", Value.fromBytes(value));
   }
 
   get fromAddress(): Bytes | null {
@@ -102,23 +92,6 @@ export class NFTRewardsVaultTransferEvent extends Entity {
       this.unset("toAddress");
     } else {
       this.set("toAddress", Value.fromBytes(<Bytes>value));
-    }
-  }
-
-  get valueTransferred(): BigInt | null {
-    let value = this.get("valueTransferred");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set valueTransferred(value: BigInt | null) {
-    if (!value) {
-      this.unset("valueTransferred");
-    } else {
-      this.set("valueTransferred", Value.fromBigInt(<BigInt>value));
     }
   }
 
@@ -190,5 +163,142 @@ export class NFTRewardsVaultTransferEvent extends Entity {
 
   set value(value: BigInt) {
     this.set("value", Value.fromBigInt(value));
+  }
+}
+
+export class TokenDayData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("token", Value.fromBytes(Bytes.empty()));
+    this.set("dailyVolumeToken", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("dailyGasConsumed", Value.fromBigDecimal(BigDecimal.zero()));
+    this.set("dailyTxns", Value.fromBigInt(BigInt.zero()));
+    this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save TokenDayData entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save TokenDayData entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("TokenDayData", id.toString(), this);
+    }
+  }
+
+  static load(id: string): TokenDayData | null {
+    return changetype<TokenDayData | null>(store.get("TokenDayData", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get date(): i32 {
+    let value = this.get("date");
+    return value!.toI32();
+  }
+
+  set date(value: i32) {
+    this.set("date", Value.fromI32(value));
+  }
+
+  get token(): Bytes {
+    let value = this.get("token");
+    return value!.toBytes();
+  }
+
+  set token(value: Bytes) {
+    this.set("token", Value.fromBytes(value));
+  }
+
+  get dailyVolumeToken(): BigDecimal {
+    let value = this.get("dailyVolumeToken");
+    return value!.toBigDecimal();
+  }
+
+  set dailyVolumeToken(value: BigDecimal) {
+    this.set("dailyVolumeToken", Value.fromBigDecimal(value));
+  }
+
+  get dailyGasConsumed(): BigDecimal {
+    let value = this.get("dailyGasConsumed");
+    return value!.toBigDecimal();
+  }
+
+  set dailyGasConsumed(value: BigDecimal) {
+    this.set("dailyGasConsumed", Value.fromBigDecimal(value));
+  }
+
+  get dailyTxns(): BigInt {
+    let value = this.get("dailyTxns");
+    return value!.toBigInt();
+  }
+
+  set dailyTxns(value: BigInt) {
+    this.set("dailyTxns", Value.fromBigInt(value));
+  }
+
+  get blockTimestamp(): BigInt {
+    let value = this.get("blockTimestamp");
+    return value!.toBigInt();
+  }
+
+  set blockTimestamp(value: BigInt) {
+    this.set("blockTimestamp", Value.fromBigInt(value));
+  }
+}
+
+export class User extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save User entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save User entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("User", id.toString(), this);
+    }
+  }
+
+  static load(id: string): User | null {
+    return changetype<User | null>(store.get("User", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get blockTimestamp(): BigInt {
+    let value = this.get("blockTimestamp");
+    return value!.toBigInt();
+  }
+
+  set blockTimestamp(value: BigInt) {
+    this.set("blockTimestamp", Value.fromBigInt(value));
   }
 }
