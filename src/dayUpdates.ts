@@ -9,8 +9,9 @@ import { ONE_BI, ZERO_BD, ZERO_BI } from "./utils";
 export function updateTokenDayData(token: TokenTransactions, event: ethereum.Event): TokenDayData {
     let timestamp = event.block.timestamp.toI32();
     let dayID = timestamp / 86400;
-    let dayStartTimestamp = dayID * 86400;
-    let tokenDayID = token.id.toString().concat("-").concat(BigInt.fromI32(dayID).toString());
+    let dayStartTimestamp = timestamp - ( timestamp % 86400 );
+    let tokenDayID = dayStartTimestamp.toString().concat("-").concat(token.txHash.toHexString());
+
     let tokenDayData = TokenDayData.load(tokenDayID);
     if (tokenDayData === null) {
         tokenDayData = new TokenDayData(tokenDayID);

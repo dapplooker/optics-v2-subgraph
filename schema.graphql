@@ -1,17 +1,13 @@
 type TokenTransactions @entity {
   id: ID!
-
   txHash: Bytes!
   fromAddress: Bytes # address
   toAddress: Bytes # address
-
   gasUsed: BigInt
   gasPrice: BigInt
   blockTimestamp: BigInt! # uint256
-
   from: Bytes! # address
   to: Bytes! # address
-
   value: BigInt! # uint256
 }
 
@@ -20,10 +16,8 @@ type TokenDayData @entity {
   id: ID!
   date: Int!
   token: Bytes!
-
   dailyVolumeToken: BigDecimal!
   dailyGasConsumed: BigDecimal!
-
   dailyTxns: BigInt!
   blockTimestamp: BigInt! # uint256
 }

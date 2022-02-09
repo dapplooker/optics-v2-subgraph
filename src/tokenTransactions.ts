@@ -3,7 +3,7 @@ import {
 } from "../generated/NFTRewardsVault/NFTRewardsVault"
 import {} from "../generated/NFTRewardsVault/NFTRewardsVault"
 import {
-    TokenTransactions as Token,
+    TokenTransactions as Transaction,
 } from "../generated/schema"
 import { log } from "@graphprotocol/graph-ts";
 import {
@@ -15,28 +15,26 @@ import {
 
 
 export function handleTransferEvent(event: TransferEvent): void {
-    let tokenIdentifier = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-    // let token = Token.load(tokenIdentifier);
-    // if (!token) {
+    let tokenTransactionIdentifier = event.transaction.hash.toHex() + "-" + event.logIndex.toString()
 
-    log.info("handleTransferEvent::inside token identifier = {}",[tokenIdentifier]);
-    let token = new Token(tokenIdentifier)
+    log.info("handleTransferEvent::inside transactions identifier = {}", [tokenTransactionIdentifier]);
+    let transactions = new Transaction(tokenTransactionIdentifier)
 
-    token.txHash = event.transaction.hash
-    token.fromAddress = event.transaction.from
-    token.toAddress = event.transaction.to
-    token.gasUsed = event.transaction.gasLimit
-    token.gasPrice = event.transaction.gasPrice
-    token.blockTimestamp = event.block.timestamp
-    token.from = event.params.from
-    token.to = event.params.to
-    token.value = event.params.value
+    transactions.txHash = event.transaction.hash
+    transactions.fromAddress = event.transaction.from
+    transactions.toAddress = event.transaction.to
+    transactions.gasUsed = event.transaction.gasLimit
+    transactions.gasPrice = event.transaction.gasPrice
+    transactions.blockTimestamp = event.block.timestamp
+    transactions.from = event.params.from
+    transactions.to = event.params.to
+    transactions.value = event.params.value
 
     log.info("handleTransferEvent: block number: {}",[event.block.number.toString()]);
-    createUser(event.parameters[0].value.toAddress(), event.address.toHexString(), event.block.timestamp);
+    // createUser(event.transaction.from.toHexString(), event.address.toHexString(), event.block.timestamp);
 
-    let tokenDayData = updateTokenDayData(token as Token, event);
+    let tokenDayData = updateTokenDayData(transactions, event);
 
     tokenDayData.save();
-    token.save();
+    transactions.save();
 }

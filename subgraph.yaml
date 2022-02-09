@@ -3,11 +3,11 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: NFTRewardsVault
+    name: celoUSD
     network: celo
     source:
       address: "0x765DE816845861e75A25fCA122bb6898B8B1282a"
-      abi: NFTRewardsVault
+      abi: celoUSD
       startBlock: 8697229
     mapping:
       kind: ethereum/events
@@ -16,9 +16,9 @@ dataSources:
       entities:
         - Transfer
       abis:
-        - name: NFTRewardsVault
+        - name: celoUSD
           file: ./abis/NFTRewardsVault.json
       eventHandlers:
-        - event: Transfer(indexed address, indexed address, uint256)
+        - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransferEvent
       file: ./src/tokenTransactions.ts
