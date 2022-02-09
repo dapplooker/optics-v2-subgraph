@@ -1,5 +1,5 @@
 {
-  "name": "optics-v2-all-local",
+  "name": "optics-v2-subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
@@ -10,7 +10,7 @@
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 realchoubey/optics-v2-all-local"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "git+ssh://git@github.com/dapplooker/graph-cli-dlooker.git#get_0.25.1",
+    "@graphprotocol/graph-cli": "git+ssh://git@github.com/dapplooker/graph-cli-dlooker.git#develop",
     "@graphprotocol/graph-ts": "0.24.1"
   }
 }

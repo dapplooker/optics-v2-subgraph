@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: cUSD
@@ -17,8 +17,8 @@ dataSources:
         - Transfer
       abis:
         - name: ERC20
-          file: ./abis/ERC20.json
+          file: cUSD/abis/ERC20.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransferEvent
-      file: ./src/tokenTransactions.ts
+      file: cUSD/cUSD.wasm

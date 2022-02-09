@@ -12,35 +12,27 @@ import {
   Address
 } from "@graphprotocol/graph-ts";
 
-export class TokenTransactions extends Entity {
+export class Token extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("txHash", Value.fromBytes(Bytes.empty()));
-    this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
-    this.set("from", Value.fromBytes(Bytes.empty()));
-    this.set("to", Value.fromBytes(Bytes.empty()));
-    this.set("value", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save TokenTransactions entity without an ID");
+    assert(id != null, "Cannot save Token entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save TokenTransactions entity with non-string ID. " +
+        "Cannot save Token entity with non-string ID. " +
           'Considering using .toHex() to convert the "id" to a string.'
       );
-      store.set("TokenTransactions", id.toString(), this);
+      store.set("Token", id.toString(), this);
     }
   }
 
-  static load(id: string): TokenTransactions | null {
-    return changetype<TokenTransactions | null>(
-      store.get("TokenTransactions", id)
-    );
+  static load(id: string): Token | null {
+    return changetype<Token | null>(store.get("Token", id));
   }
 
   get id(): string {
@@ -50,6 +42,55 @@ export class TokenTransactions extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+}
+
+export class Transaction extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("token", Value.fromString(""));
+    this.set("txHash", Value.fromBytes(Bytes.empty()));
+    this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
+    this.set("from", Value.fromBytes(Bytes.empty()));
+    this.set("to", Value.fromBytes(Bytes.empty()));
+    this.set("value", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Transaction entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Transaction entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Transaction", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Transaction | null {
+    return changetype<Transaction | null>(store.get("Transaction", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get token(): string {
+    let value = this.get("token");
+    return value!.toString();
+  }
+
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
   }
 
   get txHash(): Bytes {
@@ -171,7 +212,7 @@ export class TokenDayData extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
-    this.set("token", Value.fromBytes(Bytes.empty()));
+    this.set("token", Value.fromString(""));
     this.set("dailyVolumeToken", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("dailyGasConsumed", Value.fromBigDecimal(BigDecimal.zero()));
     this.set("dailyTxns", Value.fromBigInt(BigInt.zero()));
@@ -213,13 +254,13 @@ export class TokenDayData extends Entity {
     this.set("date", Value.fromI32(value));
   }
 
-  get token(): Bytes {
+  get token(): string {
     let value = this.get("token");
-    return value!.toBytes();
+    return value!.toString();
   }
 
-  set token(value: Bytes) {
-    this.set("token", Value.fromBytes(value));
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
   }
 
   get dailyVolumeToken(): BigDecimal {
@@ -264,6 +305,7 @@ export class User extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("token", Value.fromString(""));
     this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
   }
 
@@ -291,6 +333,15 @@ export class User extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get token(): string {
+    let value = this.get("token");
+    return value!.toString();
+  }
+
+  set token(value: string) {
+    this.set("token", Value.fromString(value));
   }
 
   get blockTimestamp(): BigInt {
