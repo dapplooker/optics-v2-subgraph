@@ -32,6 +32,7 @@ type TokenDayData @entity {
 
 type User @entity {
   id: ID!
+  user: Bytes!
   token: Token!
   blockTimestamp: BigInt! # uint256
 }

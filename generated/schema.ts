@@ -305,6 +305,7 @@ export class User extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("user", Value.fromBytes(Bytes.empty()));
     this.set("token", Value.fromString(""));
     this.set("blockTimestamp", Value.fromBigInt(BigInt.zero()));
   }
@@ -333,6 +334,15 @@ export class User extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get user(): Bytes {
+    let value = this.get("user");
+    return value!.toBytes();
+  }
+
+  set user(value: Bytes) {
+    this.set("user", Value.fromBytes(value));
   }
 
   get token(): string {

@@ -16,14 +16,15 @@ export let ONE_BI = BigInt.fromI32(1);
 export let ZERO_BD = BigDecimal.fromString("0");
 
 
-export function createUser(address: string, token: Token, blockTimestamp: BigInt): void {
-    let userID = address.concat("-").concat(token.id.toString())
-    let user = User.load(userID);
+export function createUser(address: Address, token: string, blockTimestamp: BigInt): void {
+    let userIdentifier = address.toHexString().concat("-").concat(token)
+    let user = User.load(userIdentifier);
     if (!user) {
-        user = new User(userID);
+        user = new User(address.toHexString());
+        user.user = address
+        user.token = token;
     }
-    user.token = token.id
+
     user.blockTimestamp = blockTimestamp;
     user.save();
-
 }
