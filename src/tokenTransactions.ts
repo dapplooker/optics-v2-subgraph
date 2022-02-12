@@ -13,16 +13,16 @@ import {
     updateTokenDayData
 } from "./dayUpdates"
 
-let OPTICS_CELO_ADDRESS = 0x1548cf5cf7dBd93f4dA11f45fCce315573d21B60;
+let OPTICS_CELO_ADDRESS = '0x1548cf5cf7dBd93f4dA11f45fCce315573d21B60';
 
 
 export function handleTransferEvent(event: TransferEvent): void {
-    log.info("handleTransferEvent transaction identifier from {}, type {}", [event.params.from.toString(), typeof event.params.from]);
-    log.info("handleTransferEvent transaction identifier to {}, type {}", [event.params.to.toString(), typeof event.params.to]);
-    log.info("handleTransferEvent optics typeof {}", [typeof OPTICS_CELO_ADDRESS]);
+    log.info("handleTransferEvent transaction identifier from {}, type {}", [event.params.from.toHexString(), typeof event.params.from]);
+    log.info("handleTransferEvent transaction identifier to {}, type {}", [event.params.to.toHexString(), typeof event.params.to]);
+    log.info("handleTransferEvent optics typeof {}, value {}", [typeof OPTICS_CELO_ADDRESS, OPTICS_CELO_ADDRESS.toString().toLowerCase()]);
 
-    if (event.params.from.toString() == OPTICS_CELO_ADDRESS.toString() ||
-        event.params.to.toHexString() == OPTICS_CELO_ADDRESS.toString()) {
+    if (event.params.from.toHexString().toLowerCase() == OPTICS_CELO_ADDRESS.toString().toLowerCase() ||
+        event.params.to.toHexString().toLowerCase() == OPTICS_CELO_ADDRESS.toString().toLowerCase()) {
         let token = Token.load(event.address.toHexString());
         if (!token){
             token = new Token(event.address.toHexString());
