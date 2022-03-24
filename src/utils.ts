@@ -16,7 +16,7 @@ export let ONE_BI = BigInt.fromI32(1);
 export let ZERO_BD = BigDecimal.fromString("0");
 
 
-export function createUser(address: Address, token: string, blockTimestamp: BigInt): void {
+export function createUser(address: Address, token: string, lastUpdatedTimestamp: BigInt): void {
     let userIdentifier = address.toHexString().concat("-").concat(token)
     let user = User.load(userIdentifier);
     if (!user) {
@@ -25,6 +25,6 @@ export function createUser(address: Address, token: string, blockTimestamp: BigI
         user.token = token;
     }
 
-    user.blockTimestamp = blockTimestamp;
+    user.lastUpdatedTimestamp = lastUpdatedTimestamp;
     user.save();
 }
