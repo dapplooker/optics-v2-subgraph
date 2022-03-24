@@ -41,7 +41,7 @@ export function handleTransferEvent(event: TransferEvent): void {
         transaction.toAddress = event.transaction.to;
         transaction.gasUsed = event.transaction.gasLimit;
         transaction.gasPrice = event.transaction.gasPrice;
-        transaction.blockTimestamp = event.block.timestamp;
+        transaction.lastUpdatedTimestamp = event.block.timestamp;
         transaction.from = event.params.from;
         transaction.to = event.params.to;
 

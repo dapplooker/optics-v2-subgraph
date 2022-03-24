@@ -16,18 +16,18 @@ export function updateTokenDayData(token: Transaction, event: TransferEvent): To
     let tokenDayData = TokenDayData.load(tokenDayID);
     if (tokenDayData === null) {
         tokenDayData = new TokenDayData(tokenDayID);
-        tokenDayData.date = dayStartTimestamp;
-        tokenDayData.token = token.id;
+        tokenDayData.token = token.token;
+        tokenDayData.dayTimestamp = dayStartTimestamp;
         tokenDayData.dailyVolumeToken = ZERO_BD;
         tokenDayData.dailyGasConsumed = ZERO_BD;
         tokenDayData.dailyTxns = ZERO_BI;
     }
 
-    tokenDayData.dailyVolumeToken = tokenDayData.dailyVolumeToken.plus(event.params.value.toBigDecimal());
     let gasConsumed = event.transaction.gasLimit.times(event.transaction.gasPrice).toBigDecimal();
+    tokenDayData.dailyVolumeToken = tokenDayData.dailyVolumeToken.plus(event.params.value.toBigDecimal());
     tokenDayData.dailyGasConsumed = tokenDayData.dailyGasConsumed.plus(gasConsumed);
-
     tokenDayData.dailyTxns = tokenDayData.dailyTxns.plus(ONE_BI);
+    tokenDayData.lastUpdatedTimestamp = event.block.timestamp
     tokenDayData.save();
 
     return tokenDayData as TokenDayData;
