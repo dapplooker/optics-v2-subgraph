@@ -7,7 +7,7 @@ import {
 } from "../generated/schema"
 import { log } from "@graphprotocol/graph-ts";
 import {
-    createUser,
+    createUser, fetchTokenName, fetchTokenSymbol,
 } from "./utils";
 import {
     updateTokenDayData
@@ -26,6 +26,9 @@ export function handleTransferEvent(event: TransferEvent): void {
         let token = Token.load(event.address.toHexString());
         if (!token){
             token = new Token(event.address.toHexString());
+            token.symbol = fetchTokenSymbol(event.address);
+            token.name = fetchTokenName(event.address);
+            token.lastUpdatedTimestamp = event.block.timestamp;
             token.save();
         }
 
