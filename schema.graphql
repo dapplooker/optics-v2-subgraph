@@ -15,6 +15,7 @@ type Transaction @entity {
   txHash: Bytes!
   fromAddress: Bytes # address
   toAddress: Bytes # address
+  transactionType: String
   gasUsed: BigInt
   gasPrice: BigInt
   lastUpdatedTimestamp: BigInt! # uint256
@@ -29,8 +30,17 @@ type TokenDayData @entity {
   dayTimestamp: Int!
   token: Token!
   dailyVolumeToken: BigDecimal!
+  outDailyVolumeToken: BigDecimal!
+  inDailyVolumeToken: BigDecimal!
+
   dailyGasConsumed: BigDecimal!
+  outDailyGasConsumed: BigDecimal!
+  inDailyGasConsumed: BigDecimal!
+
   dailyTxns: BigInt!
+  outDailyTxns: BigDecimal!
+  inDailyTxns: BigDecimal!
+
   lastUpdatedTimestamp: BigInt! # uint256
 }
 

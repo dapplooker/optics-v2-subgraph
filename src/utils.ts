@@ -18,7 +18,10 @@ import {
 export let ZERO_BI = BigInt.fromI32(0);
 export let ONE_BI = BigInt.fromI32(1);
 export let ZERO_BD = BigDecimal.fromString("0");
+export let ONE_BD = BigDecimal.fromString("1");
 export let CELO_ADDRESS = "0x471EcE3750Da237f93B8E339c536989b8978a438";
+export let OUT_TRANSACTION_TYPE = "OUT";
+export let IN_TRANSACTION_TYPE = "IN";
 
 export function createUser(address: Address, token: string, lastUpdatedTimestamp: BigInt): void {
     let userIdentifier = address.toHexString().concat("-").concat(token)

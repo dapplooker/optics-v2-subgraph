@@ -386,3 +386,123 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransferEvent
       file: ./src/tokenTransactions.ts
+  - kind: ethereum
+    name: Symmetric
+    network: celo
+    source:
+      address: "0x7c64aD5F9804458B8c9F93f7300c15D55956Ac2a"
+      abi: ERC20
+      startBlock: 10077129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransferEvent
+      file: ./src/tokenTransactions.ts
+  - kind: ethereum
+    name: DAI-0
+    network: celo
+    source:
+      address: "0xE4fE50cdD716522A56204352f00AA110F731932d"
+      abi: ERC20
+      startBlock: 10077129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransferEvent
+      file: ./src/tokenTransactions.ts
+  - kind: ethereum
+    name: DAI-1
+    network: celo
+    source:
+      address: "0x90Ca507a5D4458a4C6C6249d186b6dCb02a5BCCd"
+      abi: ERC20
+      startBlock: 10077129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransferEvent
+      file: ./src/tokenTransactions.ts
+  - kind: ethereum
+    name: wBTC-0
+    network: celo
+    source:
+      address: "0xBAAB46E28388d2779e6E31Fd00cF0e5Ad95E327B"
+      abi: ERC20
+      startBlock: 10077129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransferEvent
+      file: ./src/tokenTransactions.ts
+  - kind: ethereum
+    name: wBTC-1
+    network: celo
+    source:
+      address: "0xBe50a3013A1c94768A1ABb78c3cB79AB28fc1aCE"
+      abi: ERC20
+      startBlock: 10077129
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: ERC20NameBytes
+          file: ./abis/ERC20NameBytes.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransferEvent
+      file: ./src/tokenTransactions.ts
