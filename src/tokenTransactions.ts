@@ -7,7 +7,7 @@ import {
 } from "../generated/schema"
 import { log } from "@graphprotocol/graph-ts";
 import {
-    createUser, fetchTokenName, fetchTokenSymbol,
+    createUser, fetchTokenName, fetchTokenSymbol, IN_TRANSACTION_TYPE, OUT_TRANSACTION_TYPE,
 } from "./utils";
 import {
     updateTokenDayData
@@ -45,7 +45,11 @@ export function handleTransferEvent(event: TransferEvent): void {
         transaction.gasUsed = event.transaction.gasLimit;
         transaction.gasPrice = event.transaction.gasPrice;
         transaction.lastUpdatedTimestamp = event.block.timestamp;
-        transaction.transactionType = event.logType;
+        if (event.params.from.toHexString().toLowerCase() == OPTICS_CELO_ADDRESS.toString().toLowerCase()) {
+            transaction.transactionType = OUT_TRANSACTION_TYPE;
+        } else if (event.params.to.toHexString().toLowerCase() == OPTICS_CELO_ADDRESS.toString().toLowerCase()){
+            transaction.transactionType = IN_TRANSACTION_TYPE;
+        }
         transaction.from = event.params.from;
         transaction.to = event.params.to;
 
