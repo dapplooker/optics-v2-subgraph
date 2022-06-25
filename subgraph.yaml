@@ -411,7 +411,7 @@ dataSources:
           handler: handleTransferEvent
       file: ./src/tokenTransactions.ts
   - kind: ethereum
-    name: DAI-0
+    name: DAI1
     network: celo
     source:
       address: "0xE4fE50cdD716522A56204352f00AA110F731932d"
@@ -435,7 +435,7 @@ dataSources:
           handler: handleTransferEvent
       file: ./src/tokenTransactions.ts
   - kind: ethereum
-    name: DAI-1
+    name: DAI2
     network: celo
     source:
       address: "0x90Ca507a5D4458a4C6C6249d186b6dCb02a5BCCd"
@@ -459,7 +459,7 @@ dataSources:
           handler: handleTransferEvent
       file: ./src/tokenTransactions.ts
   - kind: ethereum
-    name: wBTC-0
+    name: wBTC1
     network: celo
     source:
       address: "0xBAAB46E28388d2779e6E31Fd00cF0e5Ad95E327B"
@@ -483,7 +483,7 @@ dataSources:
           handler: handleTransferEvent
       file: ./src/tokenTransactions.ts
   - kind: ethereum
-    name: wBTC-1
+    name: wBTC2
     network: celo
     source:
       address: "0xBe50a3013A1c94768A1ABb78c3cB79AB28fc1aCE"
